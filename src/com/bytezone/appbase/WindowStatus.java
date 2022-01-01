@@ -73,5 +73,29 @@ public class WindowStatus implements SaveState
       x = Double.parseDouble (chunks[2]);
       y = Double.parseDouble (chunks[3]);
     }
+
+    if (width <= 0 || height <= 22 || x < 0 || y < 0)
+      setWindow ();
+    else
+      setWindow (width, height, x, y);
+  }
+
+  // ---------------------------------------------------------------------------------//
+  private void setWindow ()
+  // ---------------------------------------------------------------------------------//
+  {
+    stage.setWidth (1000);
+    stage.setHeight (600);
+    stage.centerOnScreen ();
+  }
+
+  // ---------------------------------------------------------------------------------//
+  private void setWindow (double width, double height, double x, double y)
+  // ---------------------------------------------------------------------------------//
+  {
+    stage.setWidth (width);
+    stage.setHeight (height);
+    stage.setX (x);
+    stage.setY (y);
   }
 }

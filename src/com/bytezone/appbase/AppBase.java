@@ -51,6 +51,7 @@ public abstract class AppBase extends Application
 
     mainPane.setTop (menuBar);
     createContent ();
+    saveStateList.add (windowStatus);
 
     primaryStage.setScene (new Scene (mainPane));
     primaryStage.setOnCloseRequest (e -> exit ());
@@ -67,39 +68,14 @@ public abstract class AppBase extends Application
     for (SaveState saveState : saveStateList)
       saveState.restore (prefs);
 
-    windowStatus.restore (prefs);
-
-    if (windowStatus.width <= 0 || windowStatus.height <= 22 || windowStatus.x < 0
-        || windowStatus.y < 0)
-      setWindow ();
-    else
-      setWindow (windowStatus.width, windowStatus.height, windowStatus.x, windowStatus.y);
-  }
-
-  // ---------------------------------------------------------------------------------//
-  protected void setWindow ()
-  // ---------------------------------------------------------------------------------//
-  {
-    primaryStage.setWidth (1000);
-    primaryStage.setHeight (600);
-    primaryStage.centerOnScreen ();
-  }
-
-  // ---------------------------------------------------------------------------------//
-  protected void setWindow (double width, double height, double x, double y)
-  // ---------------------------------------------------------------------------------//
-  {
-    primaryStage.setWidth (width);
-    primaryStage.setHeight (height);
-    primaryStage.setX (x);
-    primaryStage.setY (y);
+    //    windowStatus.restore (prefs);
   }
 
   // ---------------------------------------------------------------------------------//
   protected void exit ()
   // ---------------------------------------------------------------------------------//
   {
-    windowStatus.save (prefs);
+    //    windowStatus.save (prefs);
 
     for (SaveState saveState : saveStateList)
       saveState.save (prefs);
