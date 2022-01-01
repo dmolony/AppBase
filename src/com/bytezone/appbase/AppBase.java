@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 public abstract class AppBase extends Application
 // -----------------------------------------------------------------------------------//
 {
-  protected static final String PREFS_WINDOW_LOCATION = "WindowLocation";
   protected final Preferences prefs = getPreferences ();
 
   protected Stage primaryStage;
@@ -67,16 +66,12 @@ public abstract class AppBase extends Application
   {
     for (SaveState saveState : saveStateList)
       saveState.restore (prefs);
-
-    //    windowStatus.restore (prefs);
   }
 
   // ---------------------------------------------------------------------------------//
   protected void exit ()
   // ---------------------------------------------------------------------------------//
   {
-    //    windowStatus.save (prefs);
-
     for (SaveState saveState : saveStateList)
       saveState.save (prefs);
 
@@ -98,10 +93,10 @@ public abstract class AppBase extends Application
           prefs.clear ();
           System.out.println ("* * * Preferences reset * * *");
         }
-        catch (BackingStoreException e1)
+        catch (BackingStoreException e)
         {
           System.out.println ("! ! ! Preferences NOT reset ! ! !");
-          e1.printStackTrace ();
+          e.printStackTrace ();
         }
       else
         System.out.printf ("Unknown parameter: %s%n", s);

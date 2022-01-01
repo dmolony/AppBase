@@ -25,31 +25,15 @@ public class WindowStatus implements SaveState
   }
 
   // ---------------------------------------------------------------------------------//
-  void setLocation ()
-  // ---------------------------------------------------------------------------------//
-  {
-    this.width = stage.getWidth ();
-    this.height = stage.getHeight ();
-    this.x = stage.getX ();
-    this.y = stage.getY ();
-  }
-
-  // ---------------------------------------------------------------------------------//
-  protected void reset ()
-  // ---------------------------------------------------------------------------------//
-  {
-    width = 0.0;
-    height = 0.0;
-    x = 0.0;
-    y = 0.0;
-  }
-
-  // ---------------------------------------------------------------------------------//
   @Override
   public void save (Preferences prefs)
   // ---------------------------------------------------------------------------------//
   {
-    setLocation ();
+    width = stage.getWidth ();
+    height = stage.getHeight ();
+    x = stage.getX ();
+    y = stage.getY ();
+
     if (width > 100 && height > 100)
     {
       String text = String.format ("%f,%f,%f,%f", width, height, x, y);
@@ -63,9 +47,8 @@ public class WindowStatus implements SaveState
   // ---------------------------------------------------------------------------------//
   {
     String windowLocation = prefs.get (PREFS_WINDOW_LOCATION, "");
-    if (windowLocation.isEmpty ())
-      reset ();
-    else
+
+    if (!windowLocation.isEmpty ())
     {
       String[] chunks = windowLocation.split (",");
       width = Double.parseDouble (chunks[0]);
@@ -75,27 +58,17 @@ public class WindowStatus implements SaveState
     }
 
     if (width <= 0 || height <= 22 || x < 0 || y < 0)
-      setWindow ();
+    {
+      stage.setWidth (1000);
+      stage.setHeight (600);
+      stage.centerOnScreen ();
+    }
     else
-      setWindow (width, height, x, y);
-  }
-
-  // ---------------------------------------------------------------------------------//
-  private void setWindow ()
-  // ---------------------------------------------------------------------------------//
-  {
-    stage.setWidth (1000);
-    stage.setHeight (600);
-    stage.centerOnScreen ();
-  }
-
-  // ---------------------------------------------------------------------------------//
-  private void setWindow (double width, double height, double x, double y)
-  // ---------------------------------------------------------------------------------//
-  {
-    stage.setWidth (width);
-    stage.setHeight (height);
-    stage.setX (x);
-    stage.setY (y);
+    {
+      stage.setWidth (width);
+      stage.setHeight (height);
+      stage.setX (x);
+      stage.setY (y);
+    }
   }
 }
