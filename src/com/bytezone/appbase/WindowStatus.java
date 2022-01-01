@@ -15,15 +15,17 @@ public class WindowStatus implements SaveState
   double x;
   double y;
 
+  Stage stage;
+
   // ---------------------------------------------------------------------------------//
-  public WindowStatus ()
+  public void setStage (Stage stage)
   // ---------------------------------------------------------------------------------//
   {
-    reset ();
+    this.stage = stage;
   }
 
   // ---------------------------------------------------------------------------------//
-  void setLocation (Stage stage)
+  void setLocation ()
   // ---------------------------------------------------------------------------------//
   {
     this.width = stage.getWidth ();
@@ -47,6 +49,7 @@ public class WindowStatus implements SaveState
   public void save (Preferences prefs)
   // ---------------------------------------------------------------------------------//
   {
+    setLocation ();
     if (width > 100 && height > 100)
     {
       String text = String.format ("%f,%f,%f,%f", width, height, x, y);

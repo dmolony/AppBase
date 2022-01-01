@@ -7,7 +7,6 @@ import java.util.prefs.Preferences;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
@@ -23,14 +22,13 @@ public abstract class AppBase extends Application
   protected Stage primaryStage;
   protected final MenuBar menuBar = new MenuBar ();
   protected final BorderPane mainPane = new BorderPane ();
-  protected final WindowStatus windowStatus = getWindowStatus ();
-  protected Scene scene;                                    // not sure if this is needed
+  protected WindowStatus windowStatus;
 
   protected final List<SaveState> saveStateList = new ArrayList<> ();
 
   protected boolean debug = false;
 
-  abstract protected Parent createContent ();
+  abstract protected void createContent ();
 
   abstract protected Preferences getPreferences ();
 
@@ -44,15 +42,17 @@ public abstract class AppBase extends Application
     this.primaryStage = primaryStage;
     checkParameters ();
 
+    windowStatus = getWindowStatus ();
+    windowStatus.setStage (primaryStage);
+
     final String os = System.getProperty ("os.name");
     if (os != null && os.startsWith ("Mac"))
       menuBar.setUseSystemMenuBar (true);
 
     mainPane.setTop (menuBar);
     createContent ();
-    scene = new Scene (mainPane);
-    primaryStage.setScene (scene);
 
+    primaryStage.setScene (new Scene (mainPane));
     primaryStage.setOnCloseRequest (e -> exit ());
 
     restore ();
@@ -99,9 +99,6 @@ public abstract class AppBase extends Application
   protected void exit ()
   // ---------------------------------------------------------------------------------//
   {
-    windowStatus.setLocation (primaryStage);
-    //    ((XmitWindowStatus) windowStatus).setDividers (splitPane);
-
     windowStatus.save (prefs);
 
     for (SaveState saveState : saveStateList)
@@ -123,11 +120,11 @@ public abstract class AppBase extends Application
         try
         {
           prefs.clear ();
-          System.out.println ("Preferences reset");
+          System.out.println ("* * * Preferences reset * * *");
         }
         catch (BackingStoreException e1)
         {
-          System.out.println ("Preferences NOT reset");
+          System.out.println ("! ! ! Preferences NOT reset ! ! !");
           e1.printStackTrace ();
         }
       else
