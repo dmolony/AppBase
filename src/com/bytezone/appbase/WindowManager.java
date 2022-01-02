@@ -5,7 +5,7 @@ import java.util.prefs.Preferences;
 import javafx.stage.Stage;
 
 // -----------------------------------------------------------------------------------//
-public class WindowStatus implements SaveState
+public class WindowManager implements SaveState
 // -----------------------------------------------------------------------------------//
 {
   private static final String PREFS_WINDOW_LOCATION = "WindowLocation";

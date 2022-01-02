@@ -26,7 +26,7 @@ public abstract class AppBase extends Application
   protected Stage primaryStage;
   protected final MenuBar menuBar = new MenuBar ();
   protected final BorderPane mainPane = new BorderPane ();
-  protected WindowStatus windowStatus;
+  protected WindowManager windowManager;
   protected StatusBar statusBar;
 
   protected final List<SaveState> saveStateList = new ArrayList<> ();
@@ -37,10 +37,6 @@ public abstract class AppBase extends Application
 
   abstract protected Preferences getPreferences ();
 
-  abstract protected WindowStatus getWindowStatus ();
-
-  abstract protected StatusBar getStatusBar ();
-
   // ---------------------------------------------------------------------------------//
   @Override
   public void start (Stage primaryStage) throws Exception
@@ -49,8 +45,8 @@ public abstract class AppBase extends Application
     this.primaryStage = primaryStage;
     checkParameters ();
 
-    windowStatus = getWindowStatus ();
-    windowStatus.setStage (primaryStage);
+    windowManager = getWindowManager ();
+    windowManager.setStage (primaryStage);
 
     final String os = System.getProperty ("os.name");
     if (os != null && os.startsWith ("Mac"))
@@ -62,7 +58,7 @@ public abstract class AppBase extends Application
     mainPane.setBottom (statusBar);
 
     createContent ();
-    saveStateList.add (windowStatus);
+    saveStateList.add (windowManager);
 
     primaryStage.setScene (new Scene (mainPane));
     primaryStage.setOnCloseRequest (e -> exit ());
@@ -83,6 +79,20 @@ public abstract class AppBase extends Application
     clock.play ();
 
     primaryStage.show ();
+  }
+
+  // ---------------------------------------------------------------------------------//
+  protected StatusBar getStatusBar ()
+  // ---------------------------------------------------------------------------------//
+  {
+    return new StatusBar ();
+  }
+
+  // ---------------------------------------------------------------------------------//
+  protected WindowManager getWindowManager ()
+  // ---------------------------------------------------------------------------------//
+  {
+    return new WindowManager ();
   }
 
   // ---------------------------------------------------------------------------------//
