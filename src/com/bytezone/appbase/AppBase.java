@@ -12,6 +12,8 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -21,6 +23,7 @@ import javafx.util.Duration;
 public abstract class AppBase extends Application
 // -----------------------------------------------------------------------------------//
 {
+  private static Alert alert;
   protected final Preferences prefs = getPreferences ();
 
   protected Stage primaryStage;
@@ -109,6 +112,21 @@ public abstract class AppBase extends Application
       saveState.save (prefs);
 
     Platform.exit ();
+  }
+
+  // ---------------------------------------------------------------------------------//
+  public static void showAlert (AlertType alertType, String title, String message)
+  // ---------------------------------------------------------------------------------//
+  {
+    if (alert == null)
+    {
+      alert = new Alert (alertType);
+      alert.setTitle (title);
+      alert.setHeaderText (null);
+    }
+
+    alert.setContentText (message);
+    alert.showAndWait ();
   }
 
   // ---------------------------------------------------------------------------------//
