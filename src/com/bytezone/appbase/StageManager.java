@@ -5,20 +5,15 @@ import java.util.prefs.Preferences;
 import javafx.stage.Stage;
 
 // -----------------------------------------------------------------------------------//
-public class WindowManager implements SaveState
+public class StageManager implements SaveState
 // -----------------------------------------------------------------------------------//
 {
   private static final String PREFS_WINDOW_LOCATION = "WindowLocation";
 
-  double width;
-  double height;
-  double x;
-  double y;
-
   Stage stage;
 
   // ---------------------------------------------------------------------------------//
-  public void setStage (Stage stage)
+  public StageManager (Stage stage)
   // ---------------------------------------------------------------------------------//
   {
     this.stage = stage;
@@ -29,10 +24,10 @@ public class WindowManager implements SaveState
   public void save (Preferences prefs)
   // ---------------------------------------------------------------------------------//
   {
-    width = stage.getWidth ();
-    height = stage.getHeight ();
-    x = stage.getX ();
-    y = stage.getY ();
+    double width = stage.getWidth ();
+    double height = stage.getHeight ();
+    double x = stage.getX ();
+    double y = stage.getY ();
 
     if (width > 100 && height > 100)
     {
@@ -47,6 +42,10 @@ public class WindowManager implements SaveState
   // ---------------------------------------------------------------------------------//
   {
     String windowLocation = prefs.get (PREFS_WINDOW_LOCATION, "");
+    double width = 0.0;
+    double height = 0.0;
+    double x = 0.0;
+    double y = 0.0;
 
     if (!windowLocation.isEmpty ())
     {

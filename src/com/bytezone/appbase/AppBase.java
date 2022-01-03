@@ -26,7 +26,7 @@ public abstract class AppBase extends Application
   protected Stage primaryStage;
   protected final MenuBar menuBar = new MenuBar ();
   protected final BorderPane mainPane = new BorderPane ();
-  protected WindowManager windowManager;
+  protected StageManager stageManager;
   protected StatusBar statusBar;
 
   protected final List<SaveState> saveStateList = new ArrayList<> ();
@@ -45,20 +45,18 @@ public abstract class AppBase extends Application
     this.primaryStage = primaryStage;
     checkParameters ();
 
-    windowManager = getWindowManager ();
-    windowManager.setStage (primaryStage);
-
     final String os = System.getProperty ("os.name");
     if (os != null && os.startsWith ("Mac"))
       menuBar.setUseSystemMenuBar (true);
 
+    stageManager = getStageManager (primaryStage);
     statusBar = getStatusBar ();
 
     mainPane.setTop (menuBar);
     mainPane.setBottom (statusBar);
 
     createContent ();
-    saveStateList.add (windowManager);
+    saveStateList.add (stageManager);
 
     primaryStage.setScene (new Scene (mainPane));
     primaryStage.setOnCloseRequest (e -> exit ());
@@ -89,10 +87,10 @@ public abstract class AppBase extends Application
   }
 
   // ---------------------------------------------------------------------------------//
-  protected WindowManager getWindowManager ()
+  protected StageManager getStageManager (Stage stage)
   // ---------------------------------------------------------------------------------//
   {
-    return new WindowManager ();
+    return new StageManager (stage);
   }
 
   // ---------------------------------------------------------------------------------//
