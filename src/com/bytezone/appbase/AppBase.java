@@ -29,8 +29,10 @@ public abstract class AppBase extends Application
   protected Stage primaryStage;
   protected final MenuBar menuBar = new MenuBar ();
   protected final BorderPane mainPane = new BorderPane ();
+
   protected StageManager stageManager;
   protected StatusBar statusBar;
+  protected FontManager fontManager;
 
   protected final List<SaveState> saveStateList = new ArrayList<> ();
 
@@ -53,6 +55,7 @@ public abstract class AppBase extends Application
       menuBar.setUseSystemMenuBar (true);
 
     stageManager = getStageManager (primaryStage);
+    fontManager = getFontManager ();
     statusBar = getStatusBar ();
 
     mainPane.setTop (menuBar);
@@ -94,6 +97,13 @@ public abstract class AppBase extends Application
   // ---------------------------------------------------------------------------------//
   {
     return new StageManager (stage);
+  }
+
+  // ---------------------------------------------------------------------------------//
+  protected FontManager getFontManager ()
+  // ---------------------------------------------------------------------------------//
+  {
+    return new FontManager ();
   }
 
   // ---------------------------------------------------------------------------------//
