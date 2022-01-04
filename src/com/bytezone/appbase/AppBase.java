@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -38,7 +39,7 @@ public abstract class AppBase extends Application
 
   protected boolean debug = false;
 
-  abstract protected void createContent ();
+  abstract protected Parent createContent ();
 
   abstract protected Preferences getPreferences ();
 
@@ -59,9 +60,9 @@ public abstract class AppBase extends Application
     statusBar = getStatusBar ();
 
     mainPane.setTop (menuBar);
+    mainPane.setCenter (createContent ());
     mainPane.setBottom (statusBar);
 
-    createContent ();
     saveStateList.add (stageManager);
 
     primaryStage.setScene (new Scene (mainPane));
