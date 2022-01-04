@@ -297,23 +297,6 @@ public class FontManager implements SaveState
   protected TextArea getTextArea ()
   // ---------------------------------------------------------------------------------//
   {
-    //    StringBuilder text = new StringBuilder ();
-    //    String line;
-    //
-    //    DataInputStream inputStream = new DataInputStream (
-    //        XmitApp.class.getClassLoader ().getResourceAsStream ("com/bytezone/xmit/gui/jcl.txt"));
-    //    try (BufferedReader in = new BufferedReader (new InputStreamReader (inputStream)))
-    //    {
-    //      while ((line = in.readLine ()) != null)
-    //        text.append (line + "\n");
-    //    }
-    //    catch (IOException e)
-    //    {
-    //      e.printStackTrace ();
-    //    }
-    //    if (text.length () > 0)
-    //      text.deleteCharAt (text.length () - 1);
-
     return new TextArea ("Override me!");
   }
 
