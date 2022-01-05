@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuBar;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -25,8 +26,9 @@ public abstract class AppBase extends Application
 // -----------------------------------------------------------------------------------//
 {
   private static Alert alert;
-  protected final Preferences prefs = getPreferences ();
+  private static final String os = System.getProperty ("os.name");
 
+  protected final Preferences prefs = getPreferences ();
   protected Stage primaryStage;
   protected final MenuBar menuBar = new MenuBar ();
   protected final BorderPane mainPane = new BorderPane ();
@@ -48,12 +50,12 @@ public abstract class AppBase extends Application
   public void start (Stage primaryStage) throws Exception
   // ---------------------------------------------------------------------------------//
   {
-    this.primaryStage = primaryStage;
     checkParameters ();
 
-    final String os = System.getProperty ("os.name");
     if (os != null && os.startsWith ("Mac"))
       menuBar.setUseSystemMenuBar (true);
+
+    this.primaryStage = primaryStage;
 
     stageManager = getStageManager (primaryStage);
     fontManager = getFontManager ();
@@ -67,6 +69,7 @@ public abstract class AppBase extends Application
 
     primaryStage.setScene (new Scene (mainPane));
     primaryStage.setOnCloseRequest (e -> exit ());
+    primaryStage.getScene ().setOnKeyPressed (e -> keyPressed (e));
 
     restore ();
 
@@ -87,13 +90,6 @@ public abstract class AppBase extends Application
   }
 
   // ---------------------------------------------------------------------------------//
-  protected StatusBar getStatusBar ()
-  // ---------------------------------------------------------------------------------//
-  {
-    return new StatusBar ();
-  }
-
-  // ---------------------------------------------------------------------------------//
   protected StageManager getStageManager (Stage stage)
   // ---------------------------------------------------------------------------------//
   {
@@ -108,7 +104,14 @@ public abstract class AppBase extends Application
   }
 
   // ---------------------------------------------------------------------------------//
-  protected void restore ()
+  protected StatusBar getStatusBar ()
+  // ---------------------------------------------------------------------------------//
+  {
+    return new StatusBar ();
+  }
+
+  // ---------------------------------------------------------------------------------//
+  private void restore ()
   // ---------------------------------------------------------------------------------//
   {
     for (SaveState saveState : saveStateList)
@@ -116,7 +119,7 @@ public abstract class AppBase extends Application
   }
 
   // ---------------------------------------------------------------------------------//
-  protected void exit ()
+  private void exit ()
   // ---------------------------------------------------------------------------------//
   {
     for (SaveState saveState : saveStateList)
@@ -126,16 +129,23 @@ public abstract class AppBase extends Application
   }
 
   // ---------------------------------------------------------------------------------//
+  protected void keyPressed (KeyEvent keyEvent)
+  // ---------------------------------------------------------------------------------//
+  {
+
+  }
+
+  // ---------------------------------------------------------------------------------//
   public static void showAlert (AlertType alertType, String title, String message)
   // ---------------------------------------------------------------------------------//
   {
-    if (alert == null)
+    if (alert == null || alertType != alert.getAlertType ())
     {
       alert = new Alert (alertType);
-      alert.setTitle (title);
       alert.setHeaderText (null);
     }
 
+    alert.setTitle (title);
     alert.setContentText (message);
     alert.showAndWait ();
   }
