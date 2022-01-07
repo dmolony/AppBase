@@ -50,7 +50,7 @@ public abstract class AppBase extends Application
   public void start (Stage primaryStage) throws Exception
   // ---------------------------------------------------------------------------------//
   {
-    checkParameters ();
+    checkParameters ();             // check for -reset and -debug
 
     if (os != null && os.startsWith ("Mac"))
       menuBar.setUseSystemMenuBar (true);
@@ -74,17 +74,20 @@ public abstract class AppBase extends Application
     restore ();
 
     // create status bar clock
-    Timeline clock =
-        new Timeline (new KeyFrame (Duration.seconds (2), new EventHandler<ActionEvent> ()
-        {
-          @Override
-          public void handle (ActionEvent event)
+    if (statusBar != null)
+    {
+      Timeline clock =
+          new Timeline (new KeyFrame (Duration.seconds (2), new EventHandler<ActionEvent> ()
           {
-            statusBar.tick ();
-          }
-        }));
-    clock.setCycleCount (Timeline.INDEFINITE);
-    clock.play ();
+            @Override
+            public void handle (ActionEvent event)
+            {
+              statusBar.tick ();
+            }
+          }));
+      clock.setCycleCount (Timeline.INDEFINITE);
+      clock.play ();
+    }
 
     primaryStage.show ();
   }
@@ -156,7 +159,6 @@ public abstract class AppBase extends Application
   {
     for (String s : getParameters ().getUnnamed ())
     {
-      System.out.printf ("Parameter: %s%n", s);
       if ("-debug".equals (s))
         debug = true;
       else if ("-reset".equals (s))
