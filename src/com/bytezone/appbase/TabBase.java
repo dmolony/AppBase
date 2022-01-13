@@ -2,14 +2,12 @@ package com.bytezone.appbase;
 
 import java.util.prefs.Preferences;
 
-import com.bytezone.appbase.SaveState;
-
 import javafx.scene.control.Tab;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Font;
 
 // -----------------------------------------------------------------------------------//
-abstract class TabBase extends Tab implements SaveState
+public abstract class TabBase extends Tab implements SaveState
 // -----------------------------------------------------------------------------------//
 {
   final KeyCode keyCode;
@@ -27,14 +25,28 @@ abstract class TabBase extends Tab implements SaveState
   }
 
   // ---------------------------------------------------------------------------------//
-  void setFont (Font font)
+  public boolean isValid ()
+  // ---------------------------------------------------------------------------------//
+  {
+    return valid;
+  }
+
+  // ---------------------------------------------------------------------------------//
+  public void setValid (boolean valid)
+  // ---------------------------------------------------------------------------------//
+  {
+    this.valid = valid;
+  }
+
+  // ---------------------------------------------------------------------------------//
+  public void setFont (Font font)
   // ---------------------------------------------------------------------------------//
   {
     this.font = font;
   }
 
   // ---------------------------------------------------------------------------------//
-  void refresh ()
+  public void refresh ()
   // ---------------------------------------------------------------------------------//
   {
     valid = false;        // force an update (when next active)
@@ -61,6 +73,6 @@ abstract class TabBase extends Tab implements SaveState
   }
 
   // ---------------------------------------------------------------------------------//
-  abstract void update ();
+  public abstract void update ();
   // ---------------------------------------------------------------------------------//
 }

@@ -13,7 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Font;
 
 // -----------------------------------------------------------------------------------//
-abstract class TabPaneBase extends TabPane                                            //
+public abstract class TabPaneBase extends TabPane                                            //
     implements FontChangeListener, SaveState
 // -----------------------------------------------------------------------------------//
 {
@@ -50,14 +50,14 @@ abstract class TabPaneBase extends TabPane                                      
   }
 
   // ---------------------------------------------------------------------------------//
-  void add (TabBase tab)
+  protected void add (TabBase tab)
   // ---------------------------------------------------------------------------------//
   {
     tabs.add (tab);
   }
 
   // ---------------------------------------------------------------------------------//
-  void keyPressed (KeyEvent keyEvent)
+  public void keyPressed (KeyEvent keyEvent)
   // ---------------------------------------------------------------------------------//
   {
     KeyCode keyCode = keyEvent.getCode ();
@@ -79,7 +79,7 @@ abstract class TabPaneBase extends TabPane                                      
   }
 
   // ---------------------------------------------------------------------------------//
-  void setDefaultTab (int defaultTab)
+  protected void setDefaultTab (int defaultTab)
   // ---------------------------------------------------------------------------------//
   {
     this.defaultTab = defaultTab;
