@@ -3,11 +3,11 @@ package com.bytezone.appbase;
 import javafx.scene.input.KeyCode;
 
 // -----------------------------------------------------------------------------------//
-public abstract class TableTabBase extends TabBase
+public class TextTabBase extends TabBase
 // -----------------------------------------------------------------------------------//
 {
   // ---------------------------------------------------------------------------------//
-  public TableTabBase (String title, KeyCode keyCode)
+  public TextTabBase (String title, KeyCode keyCode)
   // ---------------------------------------------------------------------------------//
   {
     super (title, keyCode);
