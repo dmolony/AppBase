@@ -33,7 +33,7 @@ public class StatusBar extends HBox implements FontChangeListener
   }
 
   // ---------------------------------------------------------------------------------//
-  void setStatusMessage (String message)
+  public void setStatusMessage (String message)
   // ---------------------------------------------------------------------------------//
   {
     statusMessage.setText (message);
