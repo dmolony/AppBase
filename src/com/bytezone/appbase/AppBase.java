@@ -40,6 +40,7 @@ public abstract class AppBase extends Application
   protected final List<SaveState> saveStateList = new ArrayList<> ();
 
   protected boolean debug = false;
+  Timeline clock;
 
   abstract protected Parent createContent ();
 
@@ -89,6 +90,7 @@ public abstract class AppBase extends Application
       clock.play ();
     }
 
+    primaryStage.sizeToScene ();
     primaryStage.show ();
   }
 
@@ -127,6 +129,9 @@ public abstract class AppBase extends Application
   {
     for (SaveState saveState : saveStateList)
       saveState.save (prefs);
+
+    if (clock != null)
+      clock.stop ();
 
     Platform.exit ();
   }
