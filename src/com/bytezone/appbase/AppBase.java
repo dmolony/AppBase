@@ -90,7 +90,7 @@ public abstract class AppBase extends Application
       clock.play ();
     }
 
-    primaryStage.sizeToScene ();
+    //    primaryStage.sizeToScene ();      <- this screws the layout up
     primaryStage.show ();
   }
 
