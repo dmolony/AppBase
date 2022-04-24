@@ -50,11 +50,11 @@ public abstract class TabBase extends Tab implements SaveState
   // ---------------------------------------------------------------------------------//
   {
     valid = false;        // force an update (when next active)
+
     if (active)
     {
       update ();
-      assert valid == true;
-      //      valid = true;       // in case update() forgets to do it
+      assert valid == true : "update() did not set valid = true";
     }
   }
 

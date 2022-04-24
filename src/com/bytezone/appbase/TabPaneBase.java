@@ -13,7 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Font;
 
 // -----------------------------------------------------------------------------------//
-public abstract class TabPaneBase extends TabPane                                            //
+public abstract class TabPaneBase extends TabPane                                     //
     implements FontChangeListener, SaveState
 // -----------------------------------------------------------------------------------//
 {
@@ -46,7 +46,8 @@ public abstract class TabPaneBase extends TabPane                               
 
     ((TabBase) next).active = true;
     ((TabBase) next).update ();
-    assert ((TabBase) next).valid == true;
+
+    assert ((TabBase) next).valid == true : "Update() did not set valid = true";
   }
 
   // ---------------------------------------------------------------------------------//
