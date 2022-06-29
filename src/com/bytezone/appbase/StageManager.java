@@ -9,6 +9,7 @@ public class StageManager implements SaveState
 // -----------------------------------------------------------------------------------//
 {
   private static final String PREFS_WINDOW_LOCATION = "WindowLocation";
+  private static final String PREFS_WINDOW_MAXIMIZED = "WindowMaximized";
 
   Stage stage;
 
@@ -28,10 +29,13 @@ public class StageManager implements SaveState
     double height = stage.getHeight ();
     double x = stage.getX ();
     double y = stage.getY ();
+    String text = String.format ("%f,%f,%f,%f", width, height, x, y);
+
+    //    prefs.putBoolean (PREFS_WINDOW_MAXIMIZED, stage.isMaximized ());
+    //    System.out.printf ("%s %s%n", stage.isMaximized (), text);
 
     if (width > 100 && height > 100)
     {
-      String text = String.format ("%f,%f,%f,%f", width, height, x, y);
       prefs.put (PREFS_WINDOW_LOCATION, text);
     }
   }
@@ -41,6 +45,14 @@ public class StageManager implements SaveState
   public void restore (Preferences prefs)
   // ---------------------------------------------------------------------------------//
   {
+    //    System.out.printf ("%s %s%n", prefs.getBoolean (PREFS_WINDOW_MAXIMIZED, false),
+    //        prefs.get (PREFS_WINDOW_LOCATION, ""));
+    //
+    //    if (prefs.getBoolean (PREFS_WINDOW_MAXIMIZED, false))
+    //      stage.setMaximized (true);
+    //    else
+    //    {
+    //      System.out.println ("Not maximised - setting location");
     String windowLocation = prefs.get (PREFS_WINDOW_LOCATION, "");
     double width = 0.0;
     double height = 0.0;
@@ -58,8 +70,8 @@ public class StageManager implements SaveState
 
     if (width <= 0 || height <= 22 || x < 0 || y < 0)
     {
-      stage.setWidth (1000);
-      stage.setHeight (600);
+      stage.setWidth (1200);
+      stage.setHeight (800);
       stage.centerOnScreen ();
     }
     else
@@ -69,5 +81,6 @@ public class StageManager implements SaveState
       stage.setX (x);
       stage.setY (y);
     }
+    //    }
   }
 }
