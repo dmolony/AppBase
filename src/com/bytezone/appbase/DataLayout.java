@@ -40,4 +40,11 @@ public class DataLayout
     this.alignment = alignment;
     this.columnSpan = columnSpan;
   }
+
+  // ---------------------------------------------------------------------------------//
+  public void setColumnSpan (int columnSpan)
+  // ---------------------------------------------------------------------------------//
+  {
+    this.columnSpan = columnSpan;
+  }
 }

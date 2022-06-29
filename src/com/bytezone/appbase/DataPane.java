@@ -20,7 +20,7 @@ import javafx.scene.layout.RowConstraints;
 public abstract class DataPane extends GridPane
 // -----------------------------------------------------------------------------------//
 {
-  static final Insets defaultInsets = new Insets (15, 10, 15, 10);      // TRBL
+  static protected final Insets defaultInsets = new Insets (15, 10, 15, 10);     // TRBL
   private int rowHeight = 25;
   private int rows;
   private int columns;
