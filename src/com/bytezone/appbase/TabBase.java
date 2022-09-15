@@ -10,10 +10,10 @@ import javafx.scene.text.Font;
 public abstract class TabBase extends Tab implements SaveState
 // -----------------------------------------------------------------------------------//
 {
-  final KeyCode keyCode;
-  Font font;
-  boolean active;
-  boolean valid;
+  protected final KeyCode keyCode;
+  protected Font font;
+  protected boolean active;
+  protected boolean valid;
 
   // ---------------------------------------------------------------------------------//
   public TabBase (String title, KeyCode keyCode)
