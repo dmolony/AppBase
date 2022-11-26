@@ -1,6 +1,8 @@
 package com.bytezone.appbase;
 
 import javafx.geometry.Insets;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -18,10 +20,15 @@ public class BorderedDataPane extends DataPane
   private static final BorderStrokeStyle borderStrokeStyle = new BorderStrokeStyle (
       StrokeType.INSIDE, StrokeLineJoin.MITER, StrokeLineCap.BUTT, 10, 0, null);
 
-  private static final BorderStroke borderStroke = new BorderStroke (Color.DARKGREY,
-      borderStrokeStyle, new CornerRadii (10), new BorderWidths (1));
+  private static final BorderStroke borderStroke =
+      new BorderStroke (Color.BLACK, borderStrokeStyle, new CornerRadii (10), new BorderWidths (1));
 
   private static Border border = new Border (borderStroke);
+
+  private static BackgroundFill backgroundFill =
+      new BackgroundFill (Color.valueOf ("e0e0e0"), new CornerRadii (10), null);
+
+  private static Background background = new Background (backgroundFill);
 
   // ---------------------------------------------------------------------------------//
   public BorderedDataPane (int columns, int rows)
@@ -31,5 +38,6 @@ public class BorderedDataPane extends DataPane
 
     setBorder (border);
     setPadding (new Insets (7));
+    setBackground (background);
   }
 }

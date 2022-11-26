@@ -51,7 +51,7 @@ public abstract class DataPane extends GridPane
     setHgap (8);
     setVgap (3);
 
-    setGridLinesVisible (false);
+    //    setGridLinesVisible (true);
 
     setAllRowConstraints (rows, rowHeight);           // make all rows the same height
   }
