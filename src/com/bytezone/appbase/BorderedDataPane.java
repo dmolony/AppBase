@@ -20,13 +20,15 @@ public class BorderedDataPane extends DataPane
   private static final BorderStrokeStyle borderStrokeStyle = new BorderStrokeStyle (
       StrokeType.INSIDE, StrokeLineJoin.MITER, StrokeLineCap.BUTT, 10, 0, null);
 
+  private static CornerRadii radii = new CornerRadii (10);
+
   private static final BorderStroke borderStroke =
-      new BorderStroke (Color.BLACK, borderStrokeStyle, new CornerRadii (10), new BorderWidths (1));
+      new BorderStroke (Color.BLACK, borderStrokeStyle, radii, new BorderWidths (1));
 
   private static Border border = new Border (borderStroke);
 
   private static BackgroundFill backgroundFill =
-      new BackgroundFill (Color.valueOf ("e0e0e0"), new CornerRadii (10), null);
+      new BackgroundFill (Color.valueOf ("e0e0e0"), radii, null);
 
   private static Background background = new Background (backgroundFill);
 
