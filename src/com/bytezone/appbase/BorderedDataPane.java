@@ -39,7 +39,7 @@ public class BorderedDataPane extends DataPane
     super (columns, rows);
 
     setBorder (border);
-    setPadding (new Insets (7));
+    setPadding (new Insets (5, 7, 5, 7));         // TRBL
     setBackground (background);
   }
 }
