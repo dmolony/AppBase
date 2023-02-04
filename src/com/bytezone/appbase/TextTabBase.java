@@ -3,7 +3,7 @@ package com.bytezone.appbase;
 import javafx.scene.input.KeyCode;
 
 // -----------------------------------------------------------------------------------//
-public class TextTabBase extends TabBase
+public abstract class TextTabBase extends TabBase
 // -----------------------------------------------------------------------------------//
 {
   // ---------------------------------------------------------------------------------//
