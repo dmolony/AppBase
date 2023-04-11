@@ -22,6 +22,7 @@ public abstract class TabPaneBase extends TabPane                               
   private static final int TAB_WIDTH = 100;
   private final List<TabBase> tabs = new ArrayList<> ();
   private int defaultTab;
+  private List<TabChangeListener> listeners = new ArrayList<> ();
 
   // ---------------------------------------------------------------------------------//
   public TabPaneBase (String prefsId)
@@ -48,6 +49,9 @@ public abstract class TabPaneBase extends TabPane                               
     ((TabBase) next).update ();
 
     assert ((TabBase) next).valid == true : "Update() did not set valid = true";
+
+    for (TabChangeListener listener : listeners)
+      listener.tabChanged (prev, next);
   }
 
   // ---------------------------------------------------------------------------------//
