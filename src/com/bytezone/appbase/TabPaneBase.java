@@ -99,23 +99,31 @@ public abstract class TabPaneBase extends TabPane                               
     this.defaultTab = defaultTab;
   }
 
-  //----------------------------------------------------------------------------------- //
+  //--------------------------------------------------------------------------------- //
   @Override
   public void restore (Preferences prefs)
-  //----------------------------------------------------------------------------------- //
+  //--------------------------------------------------------------------------------- //
   {
     getSelectionModel ().select (prefs.getInt (PREFS_LAST_TAB, defaultTab));
     for (TabBase tab : tabs)
       tab.restore (prefs);
   }
 
-  //----------------------------------------------------------------------------------- //
+  //--------------------------------------------------------------------------------- //
   @Override
   public void save (Preferences prefs)
-  //----------------------------------------------------------------------------------- //
+  //--------------------------------------------------------------------------------- //
   {
     prefs.putInt (PREFS_LAST_TAB, getSelectionModel ().getSelectedIndex ());
     for (TabBase tab : tabs)
       tab.save (prefs);
+  }
+
+  // ---------------------------------------------------------------------------------//
+  public void addTabChangeListener (TabChangeListener listener)
+  // ---------------------------------------------------------------------------------//
+  {
+    if (!listeners.contains (listener))
+      listeners.add (listener);
   }
 }
