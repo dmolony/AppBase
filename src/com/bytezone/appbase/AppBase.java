@@ -81,8 +81,8 @@ public abstract class AppBase extends Application
     // create status bar clock
     if (statusBar != null)
     {
-      Timeline clock =
-          new Timeline (new KeyFrame (Duration.seconds (2), new EventHandler<ActionEvent> ()
+      Timeline clock = new Timeline (
+          new KeyFrame (Duration.seconds (2), new EventHandler<ActionEvent> ()
           {
             @Override
             public void handle (ActionEvent event)

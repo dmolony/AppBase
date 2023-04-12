@@ -50,8 +50,7 @@ public abstract class TabPaneBase extends TabPane                               
 
     assert ((TabBase) next).valid == true : "Update() did not set valid = true";
 
-    for (TabChangeListener listener : listeners)
-      listener.tabChanged (prev, next);
+    notifyListeners (prev, next);
   }
 
   // ---------------------------------------------------------------------------------//
@@ -92,21 +91,20 @@ public abstract class TabPaneBase extends TabPane                               
       tab.setFont (font);
   }
 
-  // ---------------------------------------------------------------------------------//
-  protected void setDefaultTab (int defaultTab)
-  // ---------------------------------------------------------------------------------//
-  {
-    this.defaultTab = defaultTab;
-  }
-
   //--------------------------------------------------------------------------------- //
   @Override
   public void restore (Preferences prefs)
   //--------------------------------------------------------------------------------- //
   {
-    getSelectionModel ().select (prefs.getInt (PREFS_LAST_TAB, defaultTab));
     for (TabBase tab : tabs)
       tab.restore (prefs);
+
+    int selectedTab = prefs.getInt (PREFS_LAST_TAB, defaultTab);
+
+    if (selectedTab == 0)                         // 0 is already selected (java sux)
+      notifyListeners (null, tabs.get (0));
+
+    getSelectionModel ().select (selectedTab);
   }
 
   //--------------------------------------------------------------------------------- //
@@ -115,8 +113,17 @@ public abstract class TabPaneBase extends TabPane                               
   //--------------------------------------------------------------------------------- //
   {
     prefs.putInt (PREFS_LAST_TAB, getSelectionModel ().getSelectedIndex ());
+
     for (TabBase tab : tabs)
       tab.save (prefs);
+  }
+
+  // ---------------------------------------------------------------------------------//
+  private void notifyListeners (Tab prev, Tab next)
+  // ---------------------------------------------------------------------------------//
+  {
+    for (TabChangeListener listener : listeners)
+      listener.tabChanged (prev, next);
   }
 
   // ---------------------------------------------------------------------------------//
