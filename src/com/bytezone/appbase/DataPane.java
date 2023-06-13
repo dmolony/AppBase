@@ -115,8 +115,8 @@ public abstract class DataPane extends GridPane
   }
 
   // ---------------------------------------------------------------------------------//
-  protected <T> ComboBox<T> createComboBox (Collection<T> list, ChangeListener<T> listener,
-      DataLayout dataLayout)
+  protected <T> ComboBox<T> createComboBox (Collection<T> list,
+      ChangeListener<T> listener, DataLayout dataLayout)
   // ---------------------------------------------------------------------------------//
   {
     ComboBox<T> comboBox = new ComboBox<T> ();
@@ -134,7 +134,8 @@ public abstract class DataPane extends GridPane
   }
 
   // ---------------------------------------------------------------------------------//
-  protected Label createLabel (String labelText, int col, int row, HPos alignment, int span)
+  protected Label createLabel (String labelText, int col, int row, HPos alignment,
+      int span)
   // ---------------------------------------------------------------------------------//
   {
     Label label = new Label (labelText);
@@ -149,7 +150,8 @@ public abstract class DataPane extends GridPane
   }
 
   // ---------------------------------------------------------------------------------//
-  protected void createLabelsVertical (String[] labels, int column, int row, HPos alignment)
+  protected void createLabelsVertical (String[] labels, int column, int row,
+      HPos alignment)
   // ---------------------------------------------------------------------------------//
   {
     for (int i = 0; i < labels.length; i++)
@@ -165,7 +167,8 @@ public abstract class DataPane extends GridPane
   }
 
   // ---------------------------------------------------------------------------------//
-  protected void createLabelsHorizontal (String[] labels, int column, int row, HPos alignment)
+  protected void createLabelsHorizontal (String[] labels, int column, int row,
+      HPos alignment)
   // ---------------------------------------------------------------------------------//
   {
     for (int i = 0; i < labels.length; i++)
@@ -191,8 +194,8 @@ public abstract class DataPane extends GridPane
     GridPane.setColumnSpan (textField, dataLayout.columnSpan);
 
     textField.setAlignment (dataLayout.alignment);
-    textField.setEditable (false);
-    textField.setFocusTraversable (false);
+    textField.setEditable (dataLayout.modifiable);
+    textField.setFocusTraversable (dataLayout.modifiable);
 
     getChildren ().add (textField);
 
@@ -223,8 +226,8 @@ public abstract class DataPane extends GridPane
       GridPane.setColumnSpan (textOut[i], dataLayout.columnSpan);
 
       textOut[i].setAlignment (dataLayout.alignment);
-      textOut[i].setEditable (false);
-      textOut[i].setFocusTraversable (false);
+      textOut[i].setEditable (dataLayout.modifiable);
+      textOut[i].setFocusTraversable (dataLayout.modifiable);
 
       getChildren ().add (textOut[i]);
     }
@@ -244,8 +247,8 @@ public abstract class DataPane extends GridPane
     GridPane.setColumnSpan (textArea, dataLayout.columnSpan);
     GridPane.setRowSpan (textArea, dataLayout.rows);
 
-    textArea.setEditable (false);
-    textArea.setFocusTraversable (false);
+    textArea.setEditable (dataLayout.modifiable);
+    textArea.setFocusTraversable (dataLayout.modifiable);
     textArea.setPrefRowCount (dataLayout.rows);
 
     getChildren ().add (textArea);
@@ -273,9 +276,12 @@ public abstract class DataPane extends GridPane
 
       GridPane.setConstraints (checkBoxes[i], dataLayout.column, dataLayout.row + i);
 
-      checkBoxes[i].setDisable (true);
-      checkBoxes[i].setStyle ("-fx-opacity: 1");    // make disabled checkbox look normal
-      checkBoxes[i].setFocusTraversable (false);
+      if (!dataLayout.modifiable)
+      {
+        checkBoxes[i].setDisable (true);
+        checkBoxes[i].setStyle ("-fx-opacity: 1");  // make disabled checkbox look normal
+        checkBoxes[i].setFocusTraversable (false);
+      }
 
       GridPane.setHalignment (checkBoxes[i], dataLayout.hpos);
       getChildren ().add (checkBoxes[i]);
@@ -287,57 +293,57 @@ public abstract class DataPane extends GridPane
   }
 
   // ---------------------------------------------------------------------------------//
-  protected CheckBox[] createCheckBoxes (String[] labelText, int col, int row)
+  //  protected CheckBox[] createCheckBoxes (String[] labelText, int col, int row)
+  //  // ---------------------------------------------------------------------------------//
+  //  {
+  //    CheckBox[] checkBoxes = new CheckBox[labelText.length];
+  //
+  //    for (int i = 0; i < labelText.length; i++)
+  //    {
+  //      Label label = new Label (labelText[i]);
+  //      checkBoxes[i] = new CheckBox ();
+  //
+  //      GridPane.setConstraints (label, col, row);
+  //      GridPane.setConstraints (checkBoxes[i], col + 1, row);
+  //
+  //      checkBoxes[i].setDisable (true);
+  //      checkBoxes[i].setStyle ("-fx-opacity: 1");    // make disabled checkbox look normal
+  //      checkBoxes[i].setFocusTraversable (false);
+  //
+  //      GridPane.setHalignment (label, HPos.RIGHT);
+  //      GridPane.setHalignment (checkBoxes[i], HPos.CENTER);
+  //      getChildren ().addAll (label, checkBoxes[i]);
+  //
+  //      row++;
+  //    }
+  //
+  //    return checkBoxes;
+  //  }
+
   // ---------------------------------------------------------------------------------//
-  {
-    CheckBox[] checkBoxes = new CheckBox[labelText.length];
-
-    for (int i = 0; i < labelText.length; i++)
-    {
-      Label label = new Label (labelText[i]);
-      checkBoxes[i] = new CheckBox ();
-
-      GridPane.setConstraints (label, col, row);
-      GridPane.setConstraints (checkBoxes[i], col + 1, row);
-
-      checkBoxes[i].setDisable (true);
-      checkBoxes[i].setStyle ("-fx-opacity: 1");    // make disabled checkbox look normal
-      checkBoxes[i].setFocusTraversable (false);
-
-      GridPane.setHalignment (label, HPos.RIGHT);
-      GridPane.setHalignment (checkBoxes[i], HPos.CENTER);
-      getChildren ().addAll (label, checkBoxes[i]);
-
-      row++;
-    }
-
-    return checkBoxes;
-  }
-
-  // ---------------------------------------------------------------------------------//
-  protected CheckBox[] createCheckBoxes (int total, int col, int row)
-  // ---------------------------------------------------------------------------------//
-  {
-    CheckBox[] checkBoxes = new CheckBox[total];
-
-    for (int i = 0; i < total; i++)
-    {
-      checkBoxes[i] = new CheckBox ();
-
-      GridPane.setConstraints (checkBoxes[i], col, row);
-      GridPane.setHalignment (checkBoxes[i], HPos.CENTER);
-
-      checkBoxes[i].setDisable (true);
-      checkBoxes[i].setStyle ("-fx-opacity: 1");    // make disabled checkbox look normal
-      checkBoxes[i].setFocusTraversable (false);
-
-      getChildren ().add (checkBoxes[i]);
-
-      row++;
-    }
-
-    return checkBoxes;
-  }
+  //  protected CheckBox[] createCheckBoxes (int total, int col, int row)
+  //  // ---------------------------------------------------------------------------------//
+  //  {
+  //    CheckBox[] checkBoxes = new CheckBox[total];
+  //
+  //    for (int i = 0; i < total; i++)
+  //    {
+  //      checkBoxes[i] = new CheckBox ();
+  //
+  //      GridPane.setConstraints (checkBoxes[i], col, row);
+  //      GridPane.setHalignment (checkBoxes[i], HPos.CENTER);
+  //
+  //      checkBoxes[i].setDisable (true);
+  //      checkBoxes[i].setStyle ("-fx-opacity: 1");    // make disabled checkbox look normal
+  //      checkBoxes[i].setFocusTraversable (false);
+  //
+  //      getChildren ().add (checkBoxes[i]);
+  //
+  //      row++;
+  //    }
+  //
+  //    return checkBoxes;
+  //  }
 
   // ---------------------------------------------------------------------------------//
   protected void reset (TextField[] textOut)

@@ -14,24 +14,26 @@ public class DataLayout
   HPos hpos = HPos.CENTER;
   int columnSpan;
   String[] labels;
+  boolean modifiable;
 
   // ---------------------------------------------------------------------------------//
-  public DataLayout (int column, int row, int rows, Pos alignment)
+  public DataLayout (int column, int row, int rows, Pos alignment, boolean modifiable)
   // ---------------------------------------------------------------------------------//
   {
-    this (column, row, rows, alignment, 1);
+    this (column, row, rows, alignment, 1, modifiable);
   }
 
   // ---------------------------------------------------------------------------------//
-  public DataLayout (int column, int row, int rows, HPos alignment)
+  public DataLayout (int column, int row, int rows, HPos alignment, boolean modifiable)
   // ---------------------------------------------------------------------------------//
   {
-    this (column, row, rows, Pos.CENTER_LEFT, 1);
+    this (column, row, rows, Pos.CENTER_LEFT, 1, modifiable);
     hpos = alignment;
   }
 
   // ---------------------------------------------------------------------------------//
-  public DataLayout (int column, int row, int rows, Pos alignment, int columnSpan)
+  public DataLayout (int column, int row, int rows, Pos alignment, int columnSpan,
+      boolean modifiable)
   // ---------------------------------------------------------------------------------//
   {
     this.column = column;
@@ -39,6 +41,7 @@ public class DataLayout
     this.rows = rows;
     this.alignment = alignment;
     this.columnSpan = columnSpan;
+    this.modifiable = modifiable;
   }
 
   // ---------------------------------------------------------------------------------//
