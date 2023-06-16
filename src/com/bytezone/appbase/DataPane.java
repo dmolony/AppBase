@@ -10,8 +10,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -20,7 +22,7 @@ import javafx.scene.layout.RowConstraints;
 public abstract class DataPane extends GridPane
 // -----------------------------------------------------------------------------------//
 {
-  static protected final Insets defaultInsets = new Insets (15, 10, 15, 10);     // TRBL
+  static protected final Insets defaultInsets = new Insets (15, 10, 15, 10);   // TRBL
 
   private int rowHeight = 25;
   private int rows;
@@ -260,7 +262,7 @@ public abstract class DataPane extends GridPane
   protected CheckBox[] createCheckBoxes (DataLayout dataLayout, Pos alignment)
   // ---------------------------------------------------------------------------------//
   {
-    dataLayout.alignment = alignment;
+    dataLayout.alignment = alignment;           // alter the value for future calls
     return createCheckBoxes (dataLayout);
   }
 
@@ -293,57 +295,23 @@ public abstract class DataPane extends GridPane
   }
 
   // ---------------------------------------------------------------------------------//
-  //  protected CheckBox[] createCheckBoxes (String[] labelText, int col, int row)
-  //  // ---------------------------------------------------------------------------------//
-  //  {
-  //    CheckBox[] checkBoxes = new CheckBox[labelText.length];
-  //
-  //    for (int i = 0; i < labelText.length; i++)
-  //    {
-  //      Label label = new Label (labelText[i]);
-  //      checkBoxes[i] = new CheckBox ();
-  //
-  //      GridPane.setConstraints (label, col, row);
-  //      GridPane.setConstraints (checkBoxes[i], col + 1, row);
-  //
-  //      checkBoxes[i].setDisable (true);
-  //      checkBoxes[i].setStyle ("-fx-opacity: 1");    // make disabled checkbox look normal
-  //      checkBoxes[i].setFocusTraversable (false);
-  //
-  //      GridPane.setHalignment (label, HPos.RIGHT);
-  //      GridPane.setHalignment (checkBoxes[i], HPos.CENTER);
-  //      getChildren ().addAll (label, checkBoxes[i]);
-  //
-  //      row++;
-  //    }
-  //
-  //    return checkBoxes;
-  //  }
-
+  protected RadioButton[] createRadioButtons (DataLayout dataLayout)
   // ---------------------------------------------------------------------------------//
-  //  protected CheckBox[] createCheckBoxes (int total, int col, int row)
-  //  // ---------------------------------------------------------------------------------//
-  //  {
-  //    CheckBox[] checkBoxes = new CheckBox[total];
-  //
-  //    for (int i = 0; i < total; i++)
-  //    {
-  //      checkBoxes[i] = new CheckBox ();
-  //
-  //      GridPane.setConstraints (checkBoxes[i], col, row);
-  //      GridPane.setHalignment (checkBoxes[i], HPos.CENTER);
-  //
-  //      checkBoxes[i].setDisable (true);
-  //      checkBoxes[i].setStyle ("-fx-opacity: 1");    // make disabled checkbox look normal
-  //      checkBoxes[i].setFocusTraversable (false);
-  //
-  //      getChildren ().add (checkBoxes[i]);
-  //
-  //      row++;
-  //    }
-  //
-  //    return checkBoxes;
-  //  }
+  {
+    ToggleGroup toggleGroup = new ToggleGroup ();
+    RadioButton[] radioButtons = new RadioButton[dataLayout.labels.length];
+
+    for (int i = 0; i < dataLayout.labels.length; i++)
+    {
+      String label = dataLayout.labels[i];
+      radioButtons[i] = new RadioButton (label);
+      radioButtons[i].setToggleGroup (toggleGroup);
+      GridPane.setConstraints (radioButtons[i], dataLayout.column, dataLayout.row + i);
+      getChildren ().add (radioButtons[i]);
+    }
+
+    return radioButtons;
+  }
 
   // ---------------------------------------------------------------------------------//
   protected void reset (TextField[] textOut)
