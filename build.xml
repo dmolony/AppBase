@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <project name="appbase" default="jar" basedir=".">
 
   <property name="srcDir" location="src" />
   <property name="binDir" location="bin" />
-  <property name="jarFolder" location="${user.home}/Dropbox/Java" />
-  <property name="jarFile" location="${jarFolder}/AppBase.jar" />
+  <property name="jarDir" location="${user.home}/Dropbox/Java" />
+  <property name="jarFile" location="${jarDir}/AppBase.jar" />
 
   <target name="version">
     <echo>AppBase.jar</echo>
