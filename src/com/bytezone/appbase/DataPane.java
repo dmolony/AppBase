@@ -1,6 +1,7 @@
 package com.bytezone.appbase;
 
 import java.util.Collection;
+import java.util.List;
 
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -136,6 +137,55 @@ public abstract class DataPane extends GridPane
   }
 
   // ---------------------------------------------------------------------------------//
+  protected void createLabelsVertical (String[] labels, int column, int row,
+      HPos alignment)
+  // ---------------------------------------------------------------------------------//
+  {
+    for (int i = 0; i < labels.length; i++)
+      createLabel (labels[i], column, row + i, alignment);
+  }
+
+  // ---------------------------------------------------------------------------------//
+  protected void createLabelsVertical (List<String> labels, int column, int row,
+      HPos alignment)
+  // ---------------------------------------------------------------------------------//
+  {
+    for (int i = 0; i < labels.size (); i++)
+      createLabel (labels.get (i), column, row + i, alignment);
+  }
+
+  // ---------------------------------------------------------------------------------//
+  protected void createLabelsHorizontal (String[] labels, int column, int row,
+      HPos alignment)
+  // ---------------------------------------------------------------------------------//
+  {
+    for (int i = 0; i < labels.length; i++)
+      createLabel (labels[i], column + i, row, alignment);
+  }
+
+  // ---------------------------------------------------------------------------------//
+  protected void createLabelsHorizontal (List<String> labels, int column, int row,
+      HPos alignment)
+  // ---------------------------------------------------------------------------------//
+  {
+    for (int i = 0; i < labels.size (); i++)
+      createLabel (labels.get (i), column + i, row, alignment);
+  }
+
+  // ---------------------------------------------------------------------------------//
+  private void createLabel (String labelText, int column, int row, HPos alignment)
+  // ---------------------------------------------------------------------------------//
+  {
+    Label label = new Label (labelText);
+
+    GridPane.setConstraints (label, column, row);
+    GridPane.setHalignment (label, alignment);
+    GridPane.setColumnSpan (label, 1);
+
+    getChildren ().add (label);
+  }
+
+  // ---------------------------------------------------------------------------------//
   protected Label createLabel (String labelText, int col, int row, HPos alignment,
       int span)
   // ---------------------------------------------------------------------------------//
@@ -149,41 +199,6 @@ public abstract class DataPane extends GridPane
     getChildren ().add (label);
 
     return label;
-  }
-
-  // ---------------------------------------------------------------------------------//
-  protected void createLabelsVertical (String[] labels, int column, int row,
-      HPos alignment)
-  // ---------------------------------------------------------------------------------//
-  {
-    for (int i = 0; i < labels.length; i++)
-    {
-      Label label = new Label (labels[i]);
-
-      GridPane.setConstraints (label, column, row + i);
-      GridPane.setColumnSpan (label, 1);
-      GridPane.setHalignment (label, alignment);
-
-      getChildren ().add (label);
-    }
-  }
-
-  // ---------------------------------------------------------------------------------//
-  protected void createLabelsHorizontal (String[] labels, int column, int row,
-      HPos alignment)
-  // ---------------------------------------------------------------------------------//
-  {
-    for (int i = 0; i < labels.length; i++)
-    {
-      Label label = new Label (labels[i]);
-
-      GridPane.setConstraints (label, column, row);
-      GridPane.setColumnSpan (label, 1);
-      GridPane.setHalignment (label, alignment);
-
-      getChildren ().add (label);
-      column++;
-    }
   }
 
   // ---------------------------------------------------------------------------------//
