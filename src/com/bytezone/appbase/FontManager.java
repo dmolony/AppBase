@@ -92,6 +92,7 @@ public class FontManager implements SaveState
   {
     String name = fontNameSubList.get (currentFontIndex);
     int count = 0;
+
     for (FontName fontName : fontNameListView.getItems ())
     {
       if (fontName.getName ().equals (name))
@@ -101,6 +102,7 @@ public class FontManager implements SaveState
       }
       ++count;
     }
+
     factory.setValue (currentFontSize);
   }
 
@@ -271,8 +273,8 @@ public class FontManager implements SaveState
   private List<FontName> getMonospacedFonts ()
   // ---------------------------------------------------------------------------------//
   {
-    final Text thinTxt = new Text ("....");
-    final Text thikTxt = new Text ("WWMM");
+    final Text thinTxt = new Text ("....   ....123");
+    final Text thikTxt = new Text ("WWMM   QQQQ123");
 
     List<FontName> monospacedFonts = new ArrayList<> ();
 
