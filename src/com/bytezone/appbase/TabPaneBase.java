@@ -24,6 +24,8 @@ public abstract class TabPaneBase extends TabPane                               
   private int defaultTab;
   private List<TabChangeListener> listeners = new ArrayList<> ();
 
+  private TabBase previousTab;
+
   // ---------------------------------------------------------------------------------//
   public TabPaneBase (String prefsId)
   // ---------------------------------------------------------------------------------//
@@ -43,7 +45,10 @@ public abstract class TabPaneBase extends TabPane                               
   // ---------------------------------------------------------------------------------//
   {
     if (prev != null)
+    {
       ((TabBase) prev).active = false;
+      previousTab = (TabBase) prev;
+    }
 
     ((TabBase) next).active = true;
     ((TabBase) next).update ();
@@ -77,7 +82,10 @@ public abstract class TabPaneBase extends TabPane                               
     for (TabBase tab : tabs)
       if (tab.keyCode == keyCode)
       {
-        getSelectionModel ().select (tab);
+        if (!tab.active)
+          getSelectionModel ().select (tab);
+        else if (previousTab != null)
+          getSelectionModel ().select (previousTab);
         break;
       }
   }

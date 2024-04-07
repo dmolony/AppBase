@@ -1,5 +1,6 @@
 package com.bytezone.appbase;
 
+import java.util.Objects;
 import java.util.prefs.Preferences;
 
 import javafx.scene.control.Tab;
@@ -21,7 +22,7 @@ public abstract class TabBase extends Tab implements SaveState
   {
     super (title);
 
-    this.keyCode = keyCode;
+    this.keyCode = Objects.requireNonNull (keyCode);
   }
 
   // ---------------------------------------------------------------------------------//
